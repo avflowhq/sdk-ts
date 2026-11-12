@@ -1,0 +1,44 @@
+{
+  "name": "@avflow/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for the avflow control plane: typed Job submission, lifecycle queries, and webhook signature verification.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avflowhq/sdk-ts.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "schemas",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "gen": "node scripts/gen-types.mjs",
+    "gen:check": "node scripts/gen-types.mjs --check",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "build": "tsc -p tsconfig.build.json",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"scripts/**/*.mjs\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\" \"scripts/**/*.mjs\""
+  },
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "json-schema-to-typescript": "^15.0.4",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3",
+    "vitest": "^3.2.4"
+  }
+}

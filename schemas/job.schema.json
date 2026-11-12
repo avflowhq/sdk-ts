@@ -1,0 +1,2279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.axonkit.io/avflow/job.schema.json",
+  "$ref": "#/$defs/Job",
+  "$defs": {
+    "ASRNodeConfig": {
+      "properties": {
+        "language": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "AgoraSinkConfig": {
+      "properties": {
+        "appId": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "uid": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "maximum": 4294967295,
+              "minimum": 1
+            },
+            {
+              "type": "string",
+              "maxLength": 255,
+              "minLength": 1
+            }
+          ]
+        },
+        "encoding": {
+          "$ref": "#/$defs/EncodingConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "AgoraSourceConfig": {
+      "properties": {
+        "appId": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "uid": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "maximum": 4294967295,
+              "minimum": 1
+            },
+            {
+              "type": "string",
+              "maxLength": 255,
+              "minLength": 1
+            }
+          ]
+        },
+        "select": {
+          "$ref": "#/$defs/SelectFilter"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "AudioEncoderConfig": {
+      "properties": {
+        "codec": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "string"
+        },
+        "bitrateBps": {
+          "type": "integer"
+        },
+        "sampleRate": {
+          "type": "integer"
+        },
+        "channels": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "AudioLevelConfig": {
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "intervalMs": {
+          "type": "integer"
+        },
+        "levels": {
+          "type": "integer"
+        },
+        "floorDb": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "AudioMixerConfig": {
+      "properties": {
+        "sampleRate": {
+          "type": "integer"
+        },
+        "channels": {
+          "type": "integer"
+        },
+        "audioLevels": {
+          "$ref": "#/$defs/AudioLevelConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "AudioResampleConfig": {
+      "properties": {
+        "sampleRate": {
+          "type": "integer"
+        },
+        "channels": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "AvatarStyle": {
+      "properties": {
+        "sizeRatio": {
+          "type": "number"
+        },
+        "textColor": {
+          "type": "string"
+        },
+        "backgroundColor": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "AxonkitSinkConfig": {
+      "properties": {
+        "serverUrl": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "videoTrackName": {
+          "type": "string"
+        },
+        "audioTrackName": {
+          "type": "string"
+        },
+        "encoding": {
+          "$ref": "#/$defs/EncodingConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "AxonkitSourceConfig": {
+      "properties": {
+        "serverUrl": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "groupSid": {
+          "type": "string"
+        },
+        "select": {
+          "$ref": "#/$defs/SelectFilter"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "AzureStorageConfig": {
+      "properties": {
+        "container": {
+          "type": "string"
+        },
+        "accountName": {
+          "type": "string"
+        },
+        "accountKey": {
+          "type": "string"
+        },
+        "sasToken": {
+          "type": "string"
+        },
+        "pathPrefix": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Canvas": {
+      "properties": {
+        "width": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "fps": {
+          "type": "integer"
+        },
+        "backgroundColor": {
+          "type": "string"
+        },
+        "coordinateSystem": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "CaptionTextSplitConfig": {
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "length": {
+          "type": "integer"
+        },
+        "lines": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ComponentStatus": {
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "error": {
+          "$ref": "#/$defs/ErrorInfo"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "CustomLayout": {
+      "properties": {
+        "regions": {
+          "items": {
+            "$ref": "#/$defs/Region"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "DailySinkConfig": {
+      "properties": {
+        "roomUrl": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "encoding": {
+          "$ref": "#/$defs/EncodingConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "DailySourceConfig": {
+      "properties": {
+        "roomUrl": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "select": {
+          "$ref": "#/$defs/SelectFilter"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "EncodingConfig": {
+      "properties": {
+        "videoCodec": {
+          "type": "string"
+        },
+        "audioCodec": {
+          "type": "string"
+        },
+        "audioProfile": {
+          "type": "string"
+        },
+        "videoBitrateBps": {
+          "type": "integer"
+        },
+        "audioBitrateBps": {
+          "type": "integer"
+        },
+        "keyframeIntervalSec": {
+          "type": "integer"
+        },
+        "enableBFrames": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ErrorInfo": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "GCPStorageConfig": {
+      "properties": {
+        "bucket": {
+          "type": "string"
+        },
+        "credentialsJson": true,
+        "pathPrefix": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "GridLayout": {
+      "properties": {
+        "maxColumns": {
+          "type": "integer"
+        },
+        "gap": {
+          "type": "number"
+        },
+        "fit": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ImageSinkConfig": {
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ImageSinkConfigBase"
+            },
+            {
+              "properties": {
+                "storageType": {
+                  "type": "string",
+                  "const": "s3"
+                },
+                "storageConfig": {
+                  "$ref": "#/$defs/S3StorageConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "ImageStorageS3"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ImageSinkConfigBase"
+            },
+            {
+              "properties": {
+                "storageType": {
+                  "type": "string",
+                  "const": "gcp"
+                },
+                "storageConfig": {
+                  "$ref": "#/$defs/GCPStorageConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "ImageStorageGcp"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ImageSinkConfigBase"
+            },
+            {
+              "properties": {
+                "storageType": {
+                  "type": "string",
+                  "const": "azure"
+                },
+                "storageConfig": {
+                  "$ref": "#/$defs/AzureStorageConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "ImageStorageAzure"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ImageSinkConfigBase"
+            },
+            {
+              "properties": {
+                "storageType": {
+                  "type": "string",
+                  "const": "local"
+                },
+                "storageConfig": {
+                  "$ref": "#/$defs/LocalStorageConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "ImageStorageLocal"
+        }
+      ]
+    },
+    "ImageSinkConfigBase": {
+      "properties": {
+        "storageType": {
+          "type": "string"
+        },
+        "storageConfig": true,
+        "format": {
+          "type": "string"
+        },
+        "intervalSec": {
+          "type": "integer"
+        },
+        "quality": {
+          "type": "integer"
+        },
+        "width": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "InputRef": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[^\\s/?#]{1,128}$"
+        },
+        "select": {
+          "$ref": "#/$defs/SelectFilter"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "name"
+      ]
+    },
+    "InputRefs": {
+      "items": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/InputRef"
+          }
+        ]
+      },
+      "type": "array"
+    },
+    "JitsiSinkConfig": {
+      "properties": {
+        "domain": {
+          "type": "string"
+        },
+        "roomName": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "appId": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "connectionOptions": {
+          "type": "object"
+        },
+        "conferenceOptions": {
+          "type": "object"
+        },
+        "encoding": {
+          "$ref": "#/$defs/EncodingConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "JitsiSourceConfig": {
+      "properties": {
+        "domain": {
+          "type": "string"
+        },
+        "roomName": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "appId": {
+          "type": "string"
+        },
+        "xmppId": {
+          "type": "string"
+        },
+        "xmppPassword": {
+          "type": "string"
+        },
+        "connectionOptions": {
+          "type": "object"
+        },
+        "conferenceOptions": {
+          "type": "object"
+        },
+        "select": {
+          "$ref": "#/$defs/SelectFilter"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Job": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[^\\s/?#]{1,128}$"
+        },
+        "metadata": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/Source"
+          },
+          "type": "array",
+          "maxItems": 5,
+          "minItems": 1
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/Node"
+          },
+          "type": "array"
+        },
+        "sinks": {
+          "items": {
+            "$ref": "#/$defs/Sink"
+          },
+          "type": "array",
+          "maxItems": 3,
+          "minItems": 1
+        },
+        "policies": {
+          "$ref": "#/$defs/Policies"
+        },
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "error": {
+          "$ref": "#/$defs/ErrorInfo"
+        },
+        "componentStatus": {
+          "additionalProperties": {
+            "$ref": "#/$defs/ComponentStatus"
+          },
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Layout": {
+      "properties": {
+        "mode": {
+          "type": "string"
+        },
+        "common": {
+          "$ref": "#/$defs/LayoutCommon"
+        },
+        "grid": {
+          "$ref": "#/$defs/GridLayout"
+        },
+        "speaker": {
+          "$ref": "#/$defs/SpeakerLayout"
+        },
+        "custom": {
+          "$ref": "#/$defs/CustomLayout"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "LayoutCommon": {
+      "properties": {
+        "emitLayoutInfo": {
+          "type": "boolean"
+        },
+        "borderRadius": {
+          "type": "number"
+        },
+        "showTiles": {
+          "type": "string"
+        },
+        "slotVisibility": {
+          "type": "string"
+        },
+        "avatar": {
+          "$ref": "#/$defs/AvatarStyle"
+        },
+        "nameLabel": {
+          "$ref": "#/$defs/NameLabel"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "LivekitSinkConfig": {
+      "properties": {
+        "serverUrl": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "videoTrackName": {
+          "type": "string"
+        },
+        "audioTrackName": {
+          "type": "string"
+        },
+        "encoding": {
+          "$ref": "#/$defs/EncodingConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "LivekitSourceConfig": {
+      "properties": {
+        "serverUrl": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "select": {
+          "$ref": "#/$defs/SelectFilter"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "LocalStorageConfig": {
+      "properties": {
+        "baseDir": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "MainPriorityRule": {
+      "properties": {},
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "MatchSource": {
+      "properties": {
+        "sourceName": {
+          "type": "string"
+        },
+        "identity": {
+          "type": "string"
+        },
+        "trackSid": {
+          "type": "string"
+        },
+        "trackSource": {
+          "type": "string"
+        },
+        "trackName": {
+          "type": "string"
+        },
+        "index": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "NameLabel": {
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "position": {
+          "type": "string"
+        },
+        "fontSize": {
+          "type": "number"
+        },
+        "fontFamily": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "backgroundColor": {
+          "type": "string"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "padding": {
+          "type": "number"
+        },
+        "borderRadius": {
+          "type": "number"
+        },
+        "maxWidthRatio": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Node": {
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NodeBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "video_mixer"
+                },
+                "config": {
+                  "$ref": "#/$defs/VideoMixerConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "NodeVideoMixer"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NodeBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "audio_mixer"
+                },
+                "config": {
+                  "$ref": "#/$defs/AudioMixerConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "NodeAudioMixer"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NodeBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "audio_resample"
+                },
+                "config": {
+                  "$ref": "#/$defs/AudioResampleConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "NodeAudioResample"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NodeBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "video_encoder"
+                },
+                "config": {
+                  "$ref": "#/$defs/VideoEncoderConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "NodeVideoEncoder"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NodeBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "audio_encoder"
+                },
+                "config": {
+                  "$ref": "#/$defs/AudioEncoderConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "NodeAudioEncoder"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NodeBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "asr"
+                },
+                "config": {
+                  "$ref": "#/$defs/ASRNodeConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "NodeAsr"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NodeBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "translate"
+                },
+                "config": {
+                  "$ref": "#/$defs/TranslateNodeConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "NodeTranslate"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NodeBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "voice_agent"
+                },
+                "config": {
+                  "$ref": "#/$defs/VoiceAgentNodeConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "NodeVoiceAgent"
+        }
+      ]
+    },
+    "NodeBase": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[^\\s/?#]{1,128}$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "video_mixer",
+            "audio_mixer",
+            "audio_resample",
+            "video_encoder",
+            "audio_encoder",
+            "asr",
+            "translate",
+            "voice_agent"
+          ]
+        },
+        "inputs": {
+          "$ref": "#/$defs/InputRefs"
+        },
+        "config": true
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Placeholder": {
+      "properties": {
+        "image": {
+          "$ref": "#/$defs/PlaceholderImage"
+        },
+        "text": {
+          "$ref": "#/$defs/PlaceholderText"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "PlaceholderImage": {
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "fit": {
+          "type": "string"
+        },
+        "borderRadius": {
+          "type": "number"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "PlaceholderText": {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string"
+        },
+        "fontSize": {
+          "type": "integer"
+        },
+        "fontFamily": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Policies": {
+      "properties": {
+        "maxDurationSec": {
+          "type": "integer"
+        },
+        "idleTimeoutSec": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "RTMPPushConfig": {
+      "properties": {
+        "urls": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "encoding": {
+          "$ref": "#/$defs/EncodingConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Region": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/MatchSource"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "offsetX": {
+          "type": "number"
+        },
+        "offsetY": {
+          "type": "number"
+        },
+        "zIndex": {
+          "type": "integer"
+        },
+        "fit": {
+          "type": "string"
+        },
+        "placeholder": {
+          "$ref": "#/$defs/Placeholder"
+        },
+        "style": {
+          "$ref": "#/$defs/RegionStyle"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "RegionStyle": {
+      "properties": {
+        "backgroundColor": {
+          "type": "string"
+        },
+        "borderColor": {
+          "type": "string"
+        },
+        "borderWidth": {
+          "type": "number"
+        },
+        "borderRadius": {
+          "type": "number"
+        },
+        "opacity": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "S3StorageConfig": {
+      "properties": {
+        "bucket": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "accessKeyId": {
+          "type": "string"
+        },
+        "secretAccessKey": {
+          "type": "string"
+        },
+        "sessionToken": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "forcePathStyle": {
+          "type": "boolean"
+        },
+        "pathPrefix": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "SRTPushConfig": {
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "encoding": {
+          "$ref": "#/$defs/EncodingConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "SegmentCaptionConfig": {
+      "properties": {
+        "showSpeaker": {
+          "type": "boolean"
+        },
+        "textSplit": {
+          "$ref": "#/$defs/CaptionTextSplitConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "SegmentSinkConfig": {
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SegmentSinkConfigBase"
+            },
+            {
+              "properties": {
+                "storageType": {
+                  "type": "string",
+                  "const": "s3"
+                },
+                "storageConfig": {
+                  "$ref": "#/$defs/S3StorageConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SegmentStorageS3"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SegmentSinkConfigBase"
+            },
+            {
+              "properties": {
+                "storageType": {
+                  "type": "string",
+                  "const": "gcp"
+                },
+                "storageConfig": {
+                  "$ref": "#/$defs/GCPStorageConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SegmentStorageGcp"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SegmentSinkConfigBase"
+            },
+            {
+              "properties": {
+                "storageType": {
+                  "type": "string",
+                  "const": "azure"
+                },
+                "storageConfig": {
+                  "$ref": "#/$defs/AzureStorageConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SegmentStorageAzure"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SegmentSinkConfigBase"
+            },
+            {
+              "properties": {
+                "storageType": {
+                  "type": "string",
+                  "const": "local"
+                },
+                "storageConfig": {
+                  "$ref": "#/$defs/LocalStorageConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SegmentStorageLocal"
+        }
+      ]
+    },
+    "SegmentSinkConfigBase": {
+      "properties": {
+        "storageType": {
+          "type": "string"
+        },
+        "storageConfig": true,
+        "format": {
+          "type": "string"
+        },
+        "encoding": {
+          "$ref": "#/$defs/EncodingConfig"
+        },
+        "segmentDurationSec": {
+          "type": "integer"
+        },
+        "maxPlaylistEntries": {
+          "type": "integer"
+        },
+        "caption": {
+          "$ref": "#/$defs/SegmentCaptionConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "SelectFilter": {
+      "properties": {
+        "mediaTypes": {
+          "items": {
+            "type": "string",
+            "enum": [
+              "audio",
+              "video",
+              "data"
+            ]
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "identities": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "excludeIdentities": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "trackSources": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "trackNames": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "trackSids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Sink": {
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SinkBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "axonkit"
+                },
+                "config": {
+                  "$ref": "#/$defs/AxonkitSinkConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SinkAxonkit"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SinkBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "livekit"
+                },
+                "config": {
+                  "$ref": "#/$defs/LivekitSinkConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SinkLivekit"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SinkBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "jitsi"
+                },
+                "config": {
+                  "$ref": "#/$defs/JitsiSinkConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SinkJitsi"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SinkBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "daily"
+                },
+                "config": {
+                  "$ref": "#/$defs/DailySinkConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SinkDaily"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SinkBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "agora"
+                },
+                "config": {
+                  "$ref": "#/$defs/AgoraSinkConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SinkAgora"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SinkBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "rtmp_push"
+                },
+                "config": {
+                  "$ref": "#/$defs/RTMPPushConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SinkRtmpPush"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SinkBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "srt_push"
+                },
+                "config": {
+                  "$ref": "#/$defs/SRTPushConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SinkSrtPush"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SinkBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "whip"
+                },
+                "config": {
+                  "$ref": "#/$defs/WHIPPushConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SinkWhip"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SinkBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "segment"
+                },
+                "config": {
+                  "$ref": "#/$defs/SegmentSinkConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SinkSegment"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SinkBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "image"
+                },
+                "config": {
+                  "$ref": "#/$defs/ImageSinkConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SinkImage"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SinkBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "websocket"
+                },
+                "config": {
+                  "$ref": "#/$defs/WebSocketSinkConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SinkWebsocket"
+        }
+      ]
+    },
+    "SinkBase": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[^\\s/?#]{1,128}$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "axonkit",
+            "livekit",
+            "jitsi",
+            "daily",
+            "agora",
+            "rtmp_push",
+            "srt_push",
+            "whip",
+            "segment",
+            "image",
+            "websocket"
+          ]
+        },
+        "inputs": {
+          "$ref": "#/$defs/InputRefs"
+        },
+        "config": true
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Source": {
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "axonkit"
+                },
+                "config": {
+                  "$ref": "#/$defs/AxonkitSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceAxonkit"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "livekit"
+                },
+                "config": {
+                  "$ref": "#/$defs/LivekitSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceLivekit"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "jitsi"
+                },
+                "config": {
+                  "$ref": "#/$defs/JitsiSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceJitsi"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "daily"
+                },
+                "config": {
+                  "$ref": "#/$defs/DailySourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceDaily"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "agora"
+                },
+                "config": {
+                  "$ref": "#/$defs/AgoraSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceAgora"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "rtmp_pull"
+                },
+                "config": {
+                  "$ref": "#/$defs/URLPullSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceRtmpPull"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "httpflv_pull"
+                },
+                "config": {
+                  "$ref": "#/$defs/URLPullSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceHttpflvPull"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "hls_pull"
+                },
+                "config": {
+                  "$ref": "#/$defs/URLPullSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceHlsPull"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "whep"
+                },
+                "config": {
+                  "$ref": "#/$defs/URLPullSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceWhep"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "web_capture"
+                },
+                "config": {
+                  "$ref": "#/$defs/WebCaptureSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceWebCapture"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "video_generator"
+                },
+                "config": {
+                  "$ref": "#/$defs/VideoGeneratorSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceVideoGenerator"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "file_pull"
+                },
+                "config": {
+                  "$ref": "#/$defs/URLPullSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceFilePull"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "srt_pull"
+                },
+                "config": {
+                  "$ref": "#/$defs/URLPullSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceSrtPull"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SourceBase"
+            },
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "rtsp_pull"
+                },
+                "config": {
+                  "$ref": "#/$defs/URLPullSourceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "title": "SourceRtspPull"
+        }
+      ]
+    },
+    "SourceBase": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[^\\s/?#]{1,128}$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "axonkit",
+            "livekit",
+            "jitsi",
+            "daily",
+            "agora",
+            "rtmp_pull",
+            "httpflv_pull",
+            "hls_pull",
+            "whep",
+            "web_capture",
+            "video_generator",
+            "file_pull",
+            "srt_pull",
+            "rtsp_pull"
+          ]
+        },
+        "config": true
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "SpeakerLayout": {
+      "properties": {
+        "mainPriority": {
+          "items": {
+            "$ref": "#/$defs/MainPriorityRule"
+          },
+          "type": "array"
+        },
+        "mainRatio": {
+          "type": "number"
+        },
+        "mainGap": {
+          "type": "number"
+        },
+        "thumbnailGap": {
+          "type": "number"
+        },
+        "mainFit": {
+          "type": "string"
+        },
+        "maxThumbnails": {
+          "type": "integer"
+        },
+        "thumbnailPosition": {
+          "type": "string"
+        },
+        "thumbnailRatio": {
+          "type": "number"
+        },
+        "thumbnailAlign": {
+          "type": "string"
+        },
+        "thumbnailFit": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "TranslateNodeConfig": {
+      "properties": {
+        "targetLanguage": {
+          "type": "string"
+        },
+        "echoTargetLanguage": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "URLPullSourceConfig": {
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "identity": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "headers": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "startTimeoutMs": {
+          "type": "integer"
+        },
+        "stallTimeoutMs": {
+          "type": "integer"
+        },
+        "loop": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "VideoEncoderConfig": {
+      "properties": {
+        "codec": {
+          "type": "string"
+        },
+        "bitrateBps": {
+          "type": "integer"
+        },
+        "keyframeIntervalSec": {
+          "type": "integer"
+        },
+        "enableBFrames": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "VideoGeneratorSourceConfig": {
+      "properties": {
+        "width": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "fps": {
+          "type": "integer"
+        },
+        "backgroundColor": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "VideoMixerConfig": {
+      "properties": {
+        "canvas": {
+          "$ref": "#/$defs/Canvas"
+        },
+        "layout": {
+          "$ref": "#/$defs/Layout"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "VoiceAgentNodeConfig": {
+      "properties": {
+        "language": {
+          "type": "string"
+        },
+        "instructions": {
+          "type": "string"
+        },
+        "greeting": {
+          "type": "string"
+        },
+        "voice": {
+          "type": "string"
+        },
+        "interrupt": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "WHIPPushConfig": {
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "headers": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "encoding": {
+          "$ref": "#/$defs/EncodingConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "WebCaptureAuthenticate": {
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "WebCaptureCookie": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "expires": {
+          "type": "number"
+        },
+        "httpOnly": {
+          "type": "boolean"
+        },
+        "secure": {
+          "type": "boolean"
+        },
+        "sameSite": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "WebCaptureGotoOptions": {
+      "properties": {
+        "waitUntil": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "timeout": {
+          "type": "integer"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "referrerPolicy": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "WebCaptureSourceConfig": {
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "viewport": {
+          "$ref": "#/$defs/WebCaptureViewport"
+        },
+        "gotoOptions": {
+          "$ref": "#/$defs/WebCaptureGotoOptions"
+        },
+        "authenticate": {
+          "$ref": "#/$defs/WebCaptureAuthenticate"
+        },
+        "cookies": {
+          "items": {
+            "$ref": "#/$defs/WebCaptureCookie"
+          },
+          "type": "array"
+        },
+        "setExtraHTTPHeaders": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "waitForSelector": {
+          "$ref": "#/$defs/WebCaptureWaitForSelector"
+        },
+        "waitForTimeout": {
+          "type": "integer"
+        },
+        "bestAttempt": {
+          "type": "boolean"
+        },
+        "fps": {
+          "type": "integer"
+        },
+        "captureAudio": {
+          "type": "boolean"
+        },
+        "captureElement": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "WebCaptureViewport": {
+      "properties": {
+        "width": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "deviceScaleFactor": {
+          "type": "number"
+        },
+        "hasTouch": {
+          "type": "boolean"
+        },
+        "isLandscape": {
+          "type": "boolean"
+        },
+        "isMobile": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "WebCaptureWaitForSelector": {
+      "properties": {
+        "selector": {
+          "type": "string"
+        },
+        "timeout": {
+          "type": "integer"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "hidden": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "WebSocketSinkConfig": {
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "headers": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "subprotocols": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    }
+  },
+  "title": "avflow Job",
+  "description": "Job submitted to the avflow control plane. Generated from the Go definitions in github.com/avflowhq/avflow/pkg/avflow; do not edit by hand."
+}

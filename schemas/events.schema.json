@@ -1,0 +1,425 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.axonkit.io/avflow/events.schema.json",
+  "$ref": "#/$defs/LifecycleEvent",
+  "$defs": {
+    "ASRSpeakerStats": {
+      "properties": {
+        "speechDurationMs": {
+          "type": "integer"
+        },
+        "utterances": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ComponentRef": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ErrorInfo": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Instance": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "deployment": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "InstanceHeartbeat": {
+      "properties": {
+        "provider": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "instanceId": {
+          "type": "string"
+        },
+        "compute": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "JobRef": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "LifecycleEvent": {
+      "properties": {
+        "schema": {
+          "type": "string",
+          "enum": [
+            "avflow.events.v1"
+          ]
+        },
+        "eventId": {
+          "type": "string"
+        },
+        "eventTime": {
+          "type": "string"
+        },
+        "instance": {
+          "$ref": "#/$defs/Instance"
+        },
+        "appId": {
+          "type": "string"
+        },
+        "job": {
+          "$ref": "#/$defs/JobRef"
+        },
+        "component": {
+          "$ref": "#/$defs/ComponentRef"
+        },
+        "event": {
+          "type": "string",
+          "enum": [
+            "job.starting",
+            "job.started",
+            "job.completed",
+            "job.failed",
+            "job.max_duration_reached",
+            "job.idle_timeout",
+            "component.error",
+            "usage.tick",
+            "instance.heartbeat"
+          ]
+        },
+        "sequenceNo": {
+          "type": "integer"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "error": {
+          "$ref": "#/$defs/ErrorInfo"
+        },
+        "usage": {
+          "$ref": "#/$defs/UsageBatch"
+        },
+        "heartbeat": {
+          "$ref": "#/$defs/InstanceHeartbeat"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "NodeValues": {
+      "properties": {
+        "videoFrames": {
+          "type": "integer"
+        },
+        "videoMillis": {
+          "type": "integer"
+        },
+        "videoWidth": {
+          "type": "integer"
+        },
+        "videoHeight": {
+          "type": "integer"
+        },
+        "videoPixels": {
+          "type": "integer"
+        },
+        "videoCodec": {
+          "type": "string"
+        },
+        "audioFrames": {
+          "type": "integer"
+        },
+        "audioMillis": {
+          "type": "integer"
+        },
+        "audioCodec": {
+          "type": "string"
+        },
+        "inputCount": {
+          "type": "integer"
+        },
+        "activeConnectionSeconds": {
+          "type": "integer"
+        },
+        "asrProcessedMillis": {
+          "type": "integer"
+        },
+        "asrUtterances": {
+          "type": "integer"
+        },
+        "asrModel": {
+          "type": "string"
+        },
+        "asrProvider": {
+          "type": "string"
+        },
+        "asrSpeakers": {
+          "additionalProperties": {
+            "$ref": "#/$defs/ASRSpeakerStats"
+          },
+          "type": "object"
+        },
+        "translateInputMillis": {
+          "type": "integer"
+        },
+        "translateOutputMillis": {
+          "type": "integer"
+        },
+        "translateProvider": {
+          "type": "string"
+        },
+        "translateModel": {
+          "type": "string"
+        },
+        "voiceAgentInputMillis": {
+          "type": "integer"
+        },
+        "voiceAgentOutputMillis": {
+          "type": "integer"
+        },
+        "voiceAgentProvider": {
+          "type": "string"
+        },
+        "voiceAgentModel": {
+          "type": "string"
+        },
+        "mixerComposeMsMax": {
+          "type": "integer"
+        },
+        "mixerComposeMsSum": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "SinkValues": {
+      "properties": {
+        "egressBytes": {
+          "type": "integer"
+        },
+        "videoFrames": {
+          "type": "integer"
+        },
+        "videoBytes": {
+          "type": "integer"
+        },
+        "videoMillis": {
+          "type": "integer"
+        },
+        "videoPixels": {
+          "type": "integer"
+        },
+        "videoWidth": {
+          "type": "integer"
+        },
+        "videoHeight": {
+          "type": "integer"
+        },
+        "videoCodec": {
+          "type": "string"
+        },
+        "videoFps": {
+          "type": "integer"
+        },
+        "videoBitrateBps": {
+          "type": "integer"
+        },
+        "audioFrames": {
+          "type": "integer"
+        },
+        "audioBytes": {
+          "type": "integer"
+        },
+        "audioMillis": {
+          "type": "integer"
+        },
+        "audioCodec": {
+          "type": "string"
+        },
+        "audioBitrateBps": {
+          "type": "integer"
+        },
+        "sinkOutputCount": {
+          "type": "integer"
+        },
+        "imageBuckets": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "SourceValues": {
+      "properties": {
+        "videoFrames": {
+          "type": "integer"
+        },
+        "videoBytes": {
+          "type": "integer"
+        },
+        "videoMillis": {
+          "type": "integer"
+        },
+        "videoPixels": {
+          "type": "integer"
+        },
+        "videoWidth": {
+          "type": "integer"
+        },
+        "videoHeight": {
+          "type": "integer"
+        },
+        "videoCodec": {
+          "type": "string"
+        },
+        "activeVideoTracks": {
+          "type": "integer"
+        },
+        "videoFps": {
+          "type": "integer"
+        },
+        "videoBitrateBps": {
+          "type": "integer"
+        },
+        "audioFrames": {
+          "type": "integer"
+        },
+        "audioBytes": {
+          "type": "integer"
+        },
+        "audioMillis": {
+          "type": "integer"
+        },
+        "audioCodec": {
+          "type": "string"
+        },
+        "activeAudioTracks": {
+          "type": "integer"
+        },
+        "audioBitrateBps": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "UsageBatch": {
+      "properties": {
+        "window": {
+          "$ref": "#/$defs/UsageWindow"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$defs/UsageComponent"
+          },
+          "type": "array"
+        },
+        "jobDurationSec": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "UsageComponent": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "since": {
+          "type": "string"
+        },
+        "final": {
+          "type": "boolean"
+        },
+        "source": {
+          "$ref": "#/$defs/SourceValues"
+        },
+        "node": {
+          "$ref": "#/$defs/NodeValues"
+        },
+        "sink": {
+          "$ref": "#/$defs/SinkValues"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "UsageWindow": {
+      "properties": {
+        "since": {
+          "type": "string"
+        },
+        "until": {
+          "type": "string"
+        },
+        "sec": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    }
+  },
+  "title": "avflow Events envelope",
+  "description": "Lifecycle / usage events delivered through the avflow events ingest channel (AVFLOW_EVENTS_INGEST_URL), HMAC-signed with X-Avflow-Signature. Generated from the Go definitions in github.com/avflowhq/avflow/pkg/event; do not edit by hand."
+}

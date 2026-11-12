@@ -1,0 +1,5 @@
+src/types.gen.ts
+src/events.gen.ts
+src/constants.gen.ts
+schemas/
+pnpm-lock.yaml
